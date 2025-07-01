@@ -9,7 +9,6 @@ ENV HOME_DIR=/home/${DEFAULT_USER}
 RUN apt-get update && apt-get install -y \
     cmake \
     curl \
-    gazebo \
     libglu1-mesa-dev \
     nano \
     vim \
