@@ -1,13 +1,12 @@
 services:
-  ros_dev_env:
-    container_name: ros2
-    image: ros2
+  ros2_waffle:
+    container_name: ros2-waffle
     build: ./
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - type: bind
         source: ${ROS_PROJECT_PATH}
-        target: /home/student/ros2_ws/src/com2009
+        target: /home/student/ros2_ws/src
       - ros2_workspace:/home/student/ros2_ws
     environment:
       - DISPLAY=$DISPLAY
