@@ -54,7 +54,7 @@ sudo update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
 
 # Enable multicast on loopback (via a startup service) 
 sudo wget -O /etc/systemd/system/multicast-lo.service \
-    https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffles/refs/heads/main/installers/multicast-lo.service
+    https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/installers/multicast-lo.service
 sudo systemctl enable multicast-lo.service
 
 echo -e "\n### Connecting to DIA-LAB SSID ###\n"
