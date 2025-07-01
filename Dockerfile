@@ -95,9 +95,9 @@ RUN if [ -f "/usr/local/bin/starship" ]; then \
     echo 'eval "$(starship init bash)"' >> ~/.bashrc; \
     fi
 
-COPY ./source/laptop_config.sh ${HOME_DIR}/.diamond/laptop_config.sh
-COPY ./source/bash_aliases ${HOME_DIR}/.diamond/bash_aliases
-RUN echo "source ~/.diamond/laptop_config.sh" >> ${HOME_DIR}/.bashrc
+COPY ./source/dia-laptop-config.sh ${HOME_DIR}/.diamond/dia-laptop-config.sh
+COPY ./source/bash-aliases ${HOME_DIR}/.diamond/bash-aliases
+RUN echo "source ~/.diamond/dia-laptop-config.sh" >> ${HOME_DIR}/.bashrc
 
 RUN sudo chown -R ${DEFAULT_USER}:${DEFAULT_USER} ${HOME_DIR}/.diamond
 

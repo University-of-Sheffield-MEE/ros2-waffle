@@ -1,6 +1,6 @@
 ROS_DISTRO=jazzy
 
-source ${HOME}/.diamond/bash_aliases
+source ${HOME}/.diamond/bash-aliases
 
 source /opt/ros/${ROS_DISTRO}/setup.bash
 if [ -f "${HOME}/ros2_ws/install/setup.bash" ]; then
