@@ -44,7 +44,6 @@ RUN apt-get update && apt-get install -y \
     python3-rosdep \
     python3-colcon-common-extensions \
     ffmpeg \
-    rviz \
     tmux \
     wget \
     xorg-dev \
