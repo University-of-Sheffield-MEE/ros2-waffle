@@ -6,6 +6,7 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 if [ -f "${HOME}/ros2_ws/install/setup.bash" ]; then
     source ${HOME}/ros2_ws/install/setup.bash
 fi
+source /usr/share/gazebo/setup.sh
 
 export RMW_IMPLEMENTATION=rmw_zenoh_cpp
 export TURTLEBOT3_MODEL=waffle
