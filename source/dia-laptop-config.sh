@@ -1,4 +1,4 @@
-ROS_DISTRO=jazzy
+ROS_DISTRO=humble
 
 source ${HOME}/.diamond/bash-aliases
 

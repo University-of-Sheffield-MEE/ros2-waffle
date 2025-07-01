@@ -1,8 +1,8 @@
-FROM osrf/ros:jazzy-desktop-full
+FROM osrf/ros:humble-desktop-full
 
 ENV QT_X11_NO_MITSHM=1
 ENV EDITOR=nano
-ENV ROS_DISTRO=jazzy
+ENV ROS_DISTRO=humble
 ENV DEFAULT_USER=student
 ENV HOME_DIR=/home/${DEFAULT_USER}
 
