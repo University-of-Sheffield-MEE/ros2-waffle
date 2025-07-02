@@ -9,15 +9,17 @@ services:
         target: /home/student/ros2_ws/src
       - ros2_workspace:/home/student/ros2_ws
     environment:
-      - DISPLAY=$DISPLAY
+      - DISPLAY=${DISPLAY}
     network_mode: host # Enable COMMS to a real waffle?
-    networks:
-      - x11
+    # networks:
+    #   - x11
     stdin_open: true
     tty: true
     privileged: true
-networks:
-  x11:
+    devices:
+      - /dev/dri:/dev/dri  # enable GPU rendering (for Gazebo)
+# networks:
+#   x11:
 
 volumes:
   ros2_workspace:
