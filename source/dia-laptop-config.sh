@@ -13,7 +13,7 @@ export ROS_DOMAIN_ID=1
 
 # Colcon
 source /usr/share/colcon_cd/function/colcon_cd.sh
-export _colcon_cd_root=${HOME}/ros2_ws
+export _colcon_cd_root=/opt/ros/${ROS_DISTRO}
 source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
