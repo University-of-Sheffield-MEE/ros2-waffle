@@ -12,15 +12,13 @@ SHARE_DIR="/home/ros"
 if [ ! -f $HOME/checkpoint1 ]; then
     echo -e "### CHECKPOINT 1 (Basic Setup) ###"
     
-    mkdir -p $SHARE_DIR/repos/
+    sudo mkdir -p $SHARE_DIR/repos/
     cd $SHARE_DIR/repos/
     git clone -b ${ROS_VER} https://github.com/tom-howard/tuos_robotics.git
     cd ~
 
     # set selected sudo commands to require no password input
     sudo cp $SHARE_DIR/repos/tuos_robotics/laptops/nopwds /etc/sudoers.d/
-
-    cleanup
 
     echo "### CHECKPOINT 1 (Basic Setup) COMPLETE ###"
 
@@ -35,7 +33,6 @@ elif [ ! -f $HOME/checkpoint2 ]; then
     curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb" # If using Ubuntu derivates use $UBUNTU_CODENAME
     sudo dpkg -i /tmp/ros2-apt-source.deb
         
-
     echo -e "\n${YELLOW}[Source .bashrc]${NC}"
     source $HOME/.bashrc
 
@@ -66,7 +63,6 @@ elif [ ! -f $HOME/checkpoint2 ]; then
     source /opt/ros/$ROS_VER/setup.bash
 
     touch $HOME/checkpoint2
-    cleanup
 
     echo "### CHECKPOINT 2 (Installing ROS) COMPLETE ###"
 
@@ -134,3 +130,7 @@ else
     echo "### CHECKPOINT 3 (Setting up TUoS Scripts) COMPLETE ###"
 
 fi
+
+sudo apt update && sudo apt upgrade -y
+sudo apt autoremove -y
+sudo apt autoclean -y
