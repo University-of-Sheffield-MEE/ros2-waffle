@@ -13,6 +13,10 @@ if [ ! -f $HOME/checkpoint1 ]; then
     echo -e "### CHECKPOINT 1 (Basic Setup) ###"
     
     sudo mkdir -p $SHARE_DIR/repos/
+    sudo addgroup laptopgrp
+    sudo adduser "$USER" laptopgrp
+    sudo adduser student laptopgrp
+    sudo chown -R $USER:laptopgrp $SHARE_DIR
     cd $SHARE_DIR/repos/
     git clone -b ${ROS_VER} https://github.com/tom-howard/tuos_robotics.git
     cd ~
