@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OS_VER=${OS_VER:="jammy"}
-ROS_VER=${ROS_VER:="humble"}
+OS_VER=${OS_VER:="noble"}
+ROS_VER=${ROS_VER:="jazzy"}
 ROS_WS=${ROS_WS:="ros2_ws"}
 echo -e "${YELLOW}Target OS version >>> '$OS_VER'${NC}"
 echo -e "\n${YELLOW}Target ROS version >>> ROS2 '$ROS_VER'${NC}"
@@ -23,6 +23,8 @@ if [ ! -f $HOME/checkpoint1 ]; then
 
     # set selected sudo commands to require no password input
     sudo cp $SHARE_DIR/repos/tuos_robotics/laptops/nopwds /etc/sudoers.d/
+    
+    touch $HOME/checkpoint1
 
     echo "### CHECKPOINT 1 (Basic Setup) COMPLETE ###"
 
