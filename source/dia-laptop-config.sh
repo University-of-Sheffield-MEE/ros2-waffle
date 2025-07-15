@@ -7,7 +7,7 @@ if [ -f "${HOME}/ros2_ws/install/setup.bash" ]; then
     source ${HOME}/ros2_ws/install/setup.bash
 fi
 
-export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export TURTLEBOT3_MODEL=waffle
 export ROS_DOMAIN_ID=1
 
