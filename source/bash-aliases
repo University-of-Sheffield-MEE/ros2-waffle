@@ -6,3 +6,6 @@ alias tb3_world="ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py"
 alias tb3_sim="ros2 launch turtlebot3_gazebo empty_world.launch.py"
 alias tb3_slam="ros2 launch turtlebot3_cartographer cartographer.launch.py"
 alias tb3_rviz="ros2 launch tuos_simulations rviz.launch"
+
+alias rtl="ros2 topic list"
+alias rnl="ros2 node list"
