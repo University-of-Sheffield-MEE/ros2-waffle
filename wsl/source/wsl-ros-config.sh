@@ -1,8 +1,10 @@
 # Custom bashrc settings for wsl_ros
 
+ROS_VERSION=jazzy
+
 source ${HOME}/.diamond/bash_aliases
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/${ROS_VERSION}/setup.bash
 WS_INSTALL_DIR=$HOME/ros2_ws/install/local_setup.bash
 if [ -f "${WS_INSTALL_DIR}" ]; then
   source ${WS_INSTALL_DIR}
@@ -13,7 +15,7 @@ export ROS_DOMAIN_ID=1
 export TURTLEBOT3_MODEL=waffle
 
 source /usr/share/colcon_cd/function/colcon_cd.sh
-export _colcon_cd_root=/opt/ros/jazzy/
+export _colcon_cd_root=/opt/ros/${ROS_VERSION}/
 source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 

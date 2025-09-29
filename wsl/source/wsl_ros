@@ -154,7 +154,7 @@ restore() {
 }
 
 check_for_updates() {
-  wget -qO /home/diamond/remote_ver https://raw.githubusercontent.com/tom-howard/tuos_robotics/humble/wsl/diamond_tools/update_triggers/remote_ver_$WSL_ROS_VER 
+  wget -qO /home/diamond/remote_ver https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER} 
 
   LOCAL_VER=$(cat /home/diamond/local_ver)
   REMOTE_VER=$(cat /home/diamond/remote_ver)
@@ -169,7 +169,7 @@ check_for_updates() {
 
 welcome_msg() {
   echo -e "${IT}Welcome to WSL-ROS2!${NC}
-Version ${WSL_ROS_VER} (2024/25 Academic year)
+Version ${WSL_ROS_VER} (2025/26 Academic year)
 
 OS: $(lsb_release -sd) ($(lsb_release -sc))  
 ROS Version: ${ROS_DISTRO} (ROS${ROS_VERSION})

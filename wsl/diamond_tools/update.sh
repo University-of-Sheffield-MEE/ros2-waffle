@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-cd ${HOME} && rm -rf tuos_robotics
-git clone -qb humble https://github.com/tom-howard/tuos_robotics.git tuos_robotics
-
-SRC_DIR=${HOME}/tuos_robotics/wsl/source
+SRC_DIR="/home/diamond/ros2-waffle/wsl/source"
 
 cd ${SRC_DIR}
 
@@ -13,11 +10,8 @@ sudo install diamond_tools /usr/local/bin/
 
 SCRIPTS_PATH=${HOME}/.diamond
 cd ${SCRIPTS_PATH}
-rm -f bash_aliases wsl_ros_setup.sh
+rm -f bash_aliases wsl-ros-config.sh
 cp ${SRC_DIR}/bash_aliases ./
-cp ${SRC_DIR}/wsl_ros_setup.sh ./
-
-cd ${HOME} && rm -rf tuos_robotics
+cp ${SRC_DIR}/wsl-ros-config.sh ./
 
 echo "[INFO] Update complete."
-

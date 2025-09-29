@@ -2,14 +2,30 @@
 
 # Diamond Tools for WSL
 
+SRC_DIR="/home/diamond/ros2-waffle"
+
+update_src() {
+  if id -nG "${USER}" | grep -qw "sudo"; then
+    echo "Checking for updates..."
+    cd $SRC_DIR && git pull --quiet
+  else
+    echo "Non-admin user, skipping updates..."
+  fi
+}
+
 getx() {
+  update_src
+
   SCRIPT=$1
   COPY_SCRIPT="$SCRIPT-$(date +'%Y%m%d%H%M%S')"
   echo "[INFO] Obtaining '${SCRIPT}.sh' script..."
-  DT_DIR=/home/diamond/diamond_tools
-  mkdir -p ${DT_DIR}
-  cd ${DT_DIR}
-  wget -qO ${COPY_SCRIPT}.sh https://raw.githubusercontent.com/tom-howard/tuos_robotics/humble/wsl/diamond_tools/${SCRIPT}.sh
+  
+  DIAMOND_TOOLS_LOCAL_DIR=/home/diamond/diamond_tools_local/
+  mkdir -p ${DIAMOND_TOOLS_LOCAL_DIR}
+  
+  cd ${DIAMOND_TOOLS_LOCAL_DIR}
+  cp ${SRC_DIR}/wsl/diamond_tools/${SCRIPT}.sh ./${COPY_SCRIPT}.sh
+  
   echo "[INFO] Executing..."
   chmod +x ${COPY_SCRIPT}.sh && ./${COPY_SCRIPT}.sh
 }
