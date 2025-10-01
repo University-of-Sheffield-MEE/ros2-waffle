@@ -10,7 +10,7 @@ if [ -f "${WS_INSTALL_DIR}" ]; then
   source ${WS_INSTALL_DIR}
 fi
 
-export ROS_LOCALHOST_ONLY=1
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST # check here: https://docs.ros.org/en/jazzy/Tutorials/Advanced/Improved-Dynamic-Discovery.html
 export ROS_DOMAIN_ID=1
 export TURTLEBOT3_MODEL=waffle
 
