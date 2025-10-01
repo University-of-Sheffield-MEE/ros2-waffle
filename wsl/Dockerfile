@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN echo "[INFO] Install WSL-specific components" && \
     apt-get update && apt-get install -o Dpkg::Options::="--force-confnew" -fuy \
-    wslu && \
+    wslu dos2unix && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
