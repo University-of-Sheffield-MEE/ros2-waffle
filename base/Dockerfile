@@ -4,10 +4,12 @@ FROM osrf/ros:${ROS_VERSION}-desktop-full
 ARG ROS_VERSION
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV DEFAULT_USER=student
+
 RUN echo "[INFO] Update Ubuntu" && \
     apt-get update && apt-get install -o Dpkg::Options::="--force-confnew" -fuy \
     nano sudo keychain rsync software-properties-common \
-    libglu1-mesa-dev libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev && \
+    mesa-utils libglu1-mesa-dev libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev && \
     apt-get dist-upgrade -o Dpkg::Options::="--force-confnew" -fuy && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -28,6 +30,7 @@ RUN echo "[INFO] Install Other Useful Packages" && \
     tmux \
     tree \
     wget \
+    ffmpeg \
     python3-pip \
     python3-venv \
     python3-scipy \
@@ -48,11 +51,10 @@ RUN echo "[INFO] Install Additional ROS tools" &&\
     ros-${ROS_VERSION}-nav2-bringup \
     ros-${ROS_VERSION}-turtlebot3 \
     ros-${ROS_VERSION}-turtlebot3-msgs \
-    ros-${ROS_VERSION}-turtlebot3-simulations && \
+    ros-${ROS_VERSION}-turtlebot3-simulations \
+    ros-${ROS_VERSION}-rmw-cyclonedds-cpp && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-ENV DEFAULT_USER=student
 
 RUN echo "[INFO] Add the 'Student' User Profile" && \
     adduser --disabled-password --gecos '' ${DEFAULT_USER} && \
