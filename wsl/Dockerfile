@@ -4,14 +4,15 @@ FROM tomphoward/ros2waffle:${ROS_VERSION}
 ARG ROS_VERSION
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV DEFAULT_USER=student
+
 RUN echo "[INFO] Install WSL-specific components" && \
     apt-get update && apt-get install -o Dpkg::Options::="--force-confnew" -fuy \
     wslu dos2unix && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV DEFAULT_USER=student
-ENV DIAMOND_DIR=/home/diamond
+ARG DIAMOND_DIR=/home/diamond
 
 RUN mkdir -p ${DIAMOND_DIR}
 
@@ -27,14 +28,13 @@ RUN install /tmp/waffle /usr/local/bin/ && \
     install /tmp/diamond_tools /usr/local/bin/
 
 USER ${DEFAULT_USER}
-
 WORKDIR ${DIAMOND_DIR}
 
 RUN git clone https://github.com/University-of-Sheffield-MEE/ros2-waffle.git
 
-ENV WSL_HOME_DIR=/home/${DEFAULT_USER}
-ENV SCRIPTS_PATH=${WSL_HOME_DIR}/.diamond
-ENV SRC_PATH=${DIAMOND_DIR}/ros2-waffle/wsl/source 
+ARG WSL_HOME_DIR=/home/${DEFAULT_USER}
+ARG SCRIPTS_PATH=${WSL_HOME_DIR}/.diamond
+ARG SRC_PATH=${DIAMOND_DIR}/ros2-waffle/wsl/source 
 
 WORKDIR ${WSL_HOME_DIR}
 RUN echo "[INFO] Configuring User Profile" && \
