@@ -1,4 +1,4 @@
-ROS_DISTRO=jazzy
+: "${ROS_DISTRO:=jazzy}"
 
 source ${HOME}/.diamond/bash-aliases
 
@@ -7,6 +7,7 @@ if [ -f "${HOME}/ros2_ws/install/setup.bash" ]; then
     source ${HOME}/ros2_ws/install/setup.bash
 fi
 
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export TURTLEBOT3_MODEL=waffle
 export ROS_DOMAIN_ID=1
