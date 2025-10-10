@@ -36,7 +36,7 @@ elif [ ! -f $HOME/checkpoint2 ]; then
     sudo add-apt-repository universe
 
     export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
-    curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb" # If using Ubuntu derivates use $UBUNTU_CODENAME
+    curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
     sudo dpkg -i /tmp/ros2-apt-source.deb
         
     echo -e "\n${YELLOW}[Source .bashrc]${NC}"
@@ -91,7 +91,7 @@ else
 
     echo -e "\n${YELLOW}[Setting up /usr/local/bin/ scripts]${NC}"
     cd $SHARE_DIR/repos/tuos_robotics/laptops/
-    sudo install robot_mode /usr/local/bin/
+    sudo install ros_mode /usr/local/bin/
         
     cd $SHARE_DIR/repos/tuos_robotics/laptops/diamond_tools/
     sudo install diamond_tools /usr/local/bin/
@@ -107,7 +107,7 @@ else
     touch laptop_number waffle_number
     echo "$LAPTOP_NO" > laptop_number
     echo "$LAPTOP_NO" > waffle_number
-    chown $USER:laptopgrp laptop_number waffle_number
+    sudo chown $USER:laptopgrp laptop_number waffle_number
 
     echo -e "\n${YELLOW}Setting up user profiles${NC}"
 
@@ -118,7 +118,7 @@ else
     cp profile_updates.sh /tmp/ 
     cd ~
     chmod +x /tmp/profile_updates.sh
-    chown $USER:laptopgrp /tmp/profile_updates.sh
+    sudo chown $USER:laptopgrp /tmp/profile_updates.sh
     # run as current user:
     /tmp/profile_updates.sh
     source $HOME/.bashrc
@@ -128,7 +128,7 @@ else
     echo -e "\n${YELLOW}[Setting up the same environment for 'student' account]${NC}"
     cp $SHARE_DIR/repos/tuos_robotics/laptops/setup_student.sh /tmp/
     chmod +x /tmp/setup_student.sh
-    chown $USER:laptopgrp /tmp/setup_student.sh
+    sudo chown $USER:laptopgrp /tmp/setup_student.sh
     sudo -i -u student "/tmp/setup_student.sh"
 
     rm -f $HOME/checkpoint*
