@@ -33,8 +33,8 @@ wget https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/r
 chmod +x ros-installer.sh
 ```
 
-Then, run the following:
+Then, run the script **three times**:
 
 ```bash
-for i in {1..3}; do ./ros-installer.sh; done
+./ros-installer.sh
 ```
