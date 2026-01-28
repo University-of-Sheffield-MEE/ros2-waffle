@@ -154,12 +154,6 @@ restore() {
 }
 
 check_for_updates() {
-  if [[ -z "$WSL_ROS_VER" ]]; then
-    echo "Error: WSL_ROS_VER is not set"
-    return 1
-  fi
-
-  mkdir -p /home/diamond 2>/dev/null || { echo "Error: Cannot access /home/diamond"; return 1; }
 
   if ! wget -qO /home/diamond/remote_ver "https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER}"; then
     echo "Error: Failed to fetch remote version"
@@ -182,7 +176,7 @@ welcome_msg() {
 Version ${WSL_ROS_VER} (2025/26 Academic year)
 
 OS: $(lsb_release -sd) ($(lsb_release -sc))  
-ROS Version: ${ROS_DISTRO} (ROS${ROS_VERSION})
+ROS Version: ${ROS_DISTRO} (ROS ${ROS_VERSION})
 "
 touch $HOME/.diamond/no_welcome
 }
