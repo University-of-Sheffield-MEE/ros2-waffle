@@ -156,8 +156,7 @@ restore() {
 check_for_updates() {
 
   if ! wget -qO /home/diamond/remote_ver "https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER}"; then
-    echo "Error: Failed to fetch remote version"
-    return 1
+    echo "0" > /home/diamond/remote_ver
   fi
 
   LOCAL_VER=$(cat /home/diamond/local_ver 2>/dev/null)
