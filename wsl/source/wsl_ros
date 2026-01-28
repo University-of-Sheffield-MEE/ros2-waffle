@@ -156,10 +156,10 @@ restore() {
 check_for_updates() {
   wget -qO /home/diamond/remote_ver https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER} 
 
-  LOCAL_VER=$(cat /home/diamond/local_ver)
-  REMOTE_VER=$(cat /home/diamond/remote_ver)
+  LOCAL_VER=$(cat /home/diamond/local_ver 2>/dev/null)
+  REMOTE_VER=$(cat /home/diamond/remote_ver 2>/dev/null)
 
-  if [ $REMOTE_VER -gt $LOCAL_VER ]; then
+  if [[ -n "$REMOTE_VER" && -n "$LOCAL_VER" ]] && [ "$REMOTE_VER" -gt "$LOCAL_VER" ]; then
     echo "Updating WSL-ROS scripts..."
     diamond_tools update
     echo "$REMOTE_VER" > /home/diamond/local_ver
