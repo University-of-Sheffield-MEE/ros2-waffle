@@ -237,7 +237,7 @@ case $COMMAND in
     check_for_updates
     ;;  
   *)
-    echo -e "'$COMMAND' is not a vaild input, see below for options...\n"
+    echo -e "'$COMMAND' is not a valid input, see below for options...\n"
     usage
     exit 1
     ;;
