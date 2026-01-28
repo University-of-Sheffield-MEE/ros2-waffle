@@ -154,7 +154,17 @@ restore() {
 }
 
 check_for_updates() {
-  wget -qO /home/diamond/remote_ver https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER} 
+  if [[ -z "$WSL_ROS_VER" ]]; then
+    echo "Error: WSL_ROS_VER is not set"
+    return 1
+  fi
+
+  mkdir -p /home/diamond 2>/dev/null || { echo "Error: Cannot access /home/diamond"; return 1; }
+
+  if ! wget -qO /home/diamond/remote_ver "https://raw.githubusercontent.com/University-of-Sheffield-MEE/ros2-waffle/refs/heads/main/wsl/diamond_tools/update_triggers/remote_ver_${WSL_ROS_VER}"; then
+    echo "Error: Failed to fetch remote version"
+    return 1
+  fi
 
   LOCAL_VER=$(cat /home/diamond/local_ver 2>/dev/null)
   REMOTE_VER=$(cat /home/diamond/remote_ver 2>/dev/null)
