@@ -35,7 +35,7 @@ If ($Distros | Where-Object {$_ -eq $DistroName -or $_ -eq ($DistroName + " (Def
     If ($Reply -eq "Y" -or $Reply -eq "YES")
     {
 
-        Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+        Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" -ArgumentList "wsl ~ -d $DistroName"
         Exit  
     }
     $Reply = Read-Host -Prompt "Is it OK to delete the current distribution and install a fresh copy? (Y/N)"
@@ -70,4 +70,4 @@ Else
 Write-Host "Installing... Please wait..."
 Write-Host
 wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
-Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" -ArgumentList "wsl ~ -d $DistroName"
