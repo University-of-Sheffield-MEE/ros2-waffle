@@ -9,7 +9,7 @@
 
 If (-not(Get-Process | Where-Object {$_.Name -eq "vcxsrv"}))
 {
-    Start-Process -FilePath "$env:SystemDrive\ProgramData\Microsoft\AppV\Client\Integration\8FCACB30-2BA0-4AFE-9816-259ED56E59EB\Root\VFS\ProgramFilesX64\VcXsrv\xlaunch.exe" -ArgumentList "-run $env:SystemDrive\WSL-ROS\wsl_ros_config.xlaunch"
+    Start-Process -FilePath "$env:SystemDrive\ProgramData\Microsoft\AppV\Client\Integration\8FCACB30-2BA0-4AFE-9816-259ED56E59EB\Root\VFS\ProgramFilesX64\VcXsrv\xlaunch.exe" -ArgumentList "-run $env:SystemDrive\WSL-ROS2\wsl_ros_config.xlaunch"
 }
 
 $console_encoding = ([console]::OutputEncoding)
@@ -70,4 +70,5 @@ Else
 Write-Host "Installing... Please wait..."
 Write-Host
 wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
+
 Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" -ArgumentList "wsl ~ -d $DistroName"
