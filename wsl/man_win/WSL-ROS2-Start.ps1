@@ -50,7 +50,6 @@ If ($Distros | Where-Object {$_ -eq $DistroName -or $_ -eq ($DistroName + " (Def
     Write-Host
     If ($Reply -eq "Y" -or $Reply -eq "YES")
     {
-
         Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
         Exit  
     }
