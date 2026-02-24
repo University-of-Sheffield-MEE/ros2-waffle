@@ -5,7 +5,6 @@
 [string]$WinTermSettingsTargetPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 [string]$WinTermSettingsTargetFilePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 [string]$WinTermSettingsBackup = "$env:LOCALAPPDATA\temp_terminal_settings.json"
-[string]$wtPath = "$env:LOCALAPPDATA\Microsoft\WindowsApps\wt.exe"
 
 If (-not(Get-Process | Where-Object {$_.Name -eq "vcxsrv"}))
 {
@@ -106,7 +105,7 @@ wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 
 Start-Sleep -Seconds 5
 
-$wtProcess = Start-Process -FilePath $wtPath -WindowStyle Hidden -PassThru
+$wtProcess = Start-Process -FilePath "$env:LOCALAPPDATA\Microsoft\WindowsApps\wt.exe" -WindowStyle Hidden -PassThru
 
 $maxRetries = 10
 $retryCount = 0
