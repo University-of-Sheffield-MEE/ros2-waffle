@@ -1,11 +1,10 @@
 [string]$DistroName = "WSL-ROS2"
-[string]$TarBallName = "wsl-ros2-v2526.01.tar"
+[string]$TarBallName = "wsl-ros2-v2526.02.tar"
 [string]$TarBallPath = "$env:SystemDrive\WSL-ROS2\$TarBallName"
 [string]$DistroTargetPath = "$env:LOCALAPPDATA\$DistroName"
-[string]$WinTermSettings = "$env:SystemDrive\WSL-ROS2\settings.json"
 [string]$WinTermSettingsTargetPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 [string]$WinTermSettingsTargetFilePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-[string]$WinTermSettingsBackup = "$WinTermSettingsTargetPath\temp_terminal_settings.json"
+[string]$WinTermSettingsBackup = "$env:LOCALAPPDATA\temp_terminal_settings.json"
 [string]$wtPath = "$env:LOCALAPPDATA\Microsoft\WindowsApps\wt.exe"
 
 If (-not(Get-Process | Where-Object {$_.Name -eq "vcxsrv"}))
