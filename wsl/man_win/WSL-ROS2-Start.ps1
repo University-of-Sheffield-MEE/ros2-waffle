@@ -1,6 +1,6 @@
 [string]$DistroName = "WSL-ROS2"
 [string]$TarBallName = "wsl-ros2-v2526.02.tar"
-[string]$TarBallPath = "$env:SystemDrive\WSL-ROS2\$TarBallName"
+[string]$TarBallPath = "$env:SystemDrive\$DistroName\$TarBallName"
 [string]$DistroTargetPath = "$env:LOCALAPPDATA\$DistroName"
 [string]$WinTermSettingsTargetPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 [string]$WinTermSettingsTargetFilePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -8,7 +8,7 @@
 
 If (-not(Get-Process | Where-Object {$_.Name -eq "vcxsrv"}))
 {
-    Start-Process -FilePath "$env:SystemDrive\ProgramData\Microsoft\AppV\Client\Integration\8FCACB30-2BA0-4AFE-9816-259ED56E59EB\Root\VFS\ProgramFilesX64\VcXsrv\xlaunch.exe" -ArgumentList "-run $env:SystemDrive\WSL-ROS2\wsl_ros_config.xlaunch"
+    Start-Process -FilePath "$env:SystemDrive\ProgramData\Microsoft\AppV\Client\Integration\8FCACB30-2BA0-4AFE-9816-259ED56E59EB\Root\VFS\ProgramFilesX64\VcXsrv\xlaunch.exe" -ArgumentList "-run $env:SystemDrive\$DistroName\wsl_ros_config.xlaunch"
 }
 
 $console_encoding = ([console]::OutputEncoding)
