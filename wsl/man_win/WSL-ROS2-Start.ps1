@@ -104,7 +104,14 @@ wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 
 Start-Sleep -Seconds 5
 
-$wtProcess = Start-Process -FilePath "$env:LOCALAPPDATA\Microsoft\WindowsApps\wt.exe" -WindowStyle Hidden -PassThru
+$wtPath = "$env:LOCALAPPDATA\Microsoft\WindowsApps\wt.exe"
+if (Test-Path $wtPath) {
+    # found the alias in local app data, so can launch silently (in the background)
+    $wtProcess = Start-Process -FilePath $wtPath -WindowStyle Hidden -PassThru
+} else {
+    # Not ideal, but need to fallback to launching the Windows Terminal from the Start Menu, which means we can't do it silently (but it will be closed automatically a bit later on, at least).
+    $wtProcess = Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+}
 
 $maxRetries = 10
 $retryCount = 0
