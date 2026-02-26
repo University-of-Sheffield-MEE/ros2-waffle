@@ -111,12 +111,12 @@ default_backup_exclusions="# A list of items to ignore during 'wsl_ros backup'
 .cache
 .config
 .dbus
-.gazebo
+.gz
 .ignition
 .landscape
 .local
 .ros
-.rviz
+.rviz2
 .sdformat
 .vscode-server"
 
