@@ -100,6 +100,7 @@ if ($wtProcess) {
     {
         Write-Log "Closing Windows Terminal to proceed with the installation."
         $wtProcess | Stop-Process -Force
+        Clear
         Start-Sleep -Seconds 2		
     }
     Else
@@ -109,6 +110,8 @@ if ($wtProcess) {
         Start-Sleep -Seconds 3
         Exit
     }   
+} else {
+    Write-Log "Windows Terminal not currently running."
 }
 
 Write-Log "Delete the existing Windows Terminal settings file if it exists (triggering creation of a default one)."
@@ -221,3 +224,4 @@ $finalSettings | ConvertTo-Json -Depth 100 | Set-Content $WinTermSettingsTargetF
 Write-Log "Settings file saved to $WinTermSettingsTargetFilePath"
 Write-Log "Launching Windows Terminal."
 Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+Write-Log "WSL-ROS2-Start.ps1 finished."
