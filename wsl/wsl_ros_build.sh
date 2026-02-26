@@ -43,8 +43,6 @@ docker export ${CONTAINER_NAME} -o ${OUTPUT_FILE}
 
 echo "0" > diamond_tools/update_triggers/remote_ver_${VERSION}
 
-sed -i '2s/.*/[string]$TarBallName = \"'${RELEASE_FILE_NAME}'\"/' man_win/WSL-ROS2-Start.ps1
-
 echo "Creating a release version (${RELEASE_FILE_NAME})..."
 cp ${OUTPUT_FILE} ${RELEASE_FILE}
 
