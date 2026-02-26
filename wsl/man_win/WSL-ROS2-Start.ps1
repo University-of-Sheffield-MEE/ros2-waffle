@@ -1,11 +1,12 @@
 [string]$DistroName = "WSL-ROS2"
-[string]$TarBallName = "wsl-ros2-v2526.02.tar"
-[string]$TarBallPath = "$env:SystemDrive\$DistroName\$TarBallName"
 [string]$DistroTargetPath = "$env:LOCALAPPDATA\$DistroName"
-[string]$WinTermSettingsTargetPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 [string]$WinTermSettingsTargetFilePath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 [string]$WinTermSettingsBackup = "$env:LOCALAPPDATA\temp_terminal_settings.json"
-$LogFile = "$env:LOCALAPPDATA\WSL-ROS2-Start-ps1.log"
+[string]$LogFile = "$env:LOCALAPPDATA\WSL-ROS2-Start-ps1.log"
+
+$TarBallObj = Get-ChildItem "$env:SystemDrive\$DistroName\wsl-ros2-v*.tar" | Sort-Object Name -Descending | Select-Object -First 1
+[string]$TarBallName = $TarBallObj.Name
+[string]$TarBallPath = $TarBallObj.FullName
 
 $ubuntuScheme = [PSCustomObject]@{
         name                = "tuos-ubuntu"
@@ -122,6 +123,8 @@ If (Test-Path $WinTermSettingsTargetFilePath)
     Write-Log "No existing settings.json file found, so no need to back up or delete anything."
     $settingsToRestore = $false
 }
+
+Write-Log "Installing $DistroName from '$TarBallName' ($TarBallPath)."
 
 Write-Host "Installing $DistroName from '$TarBallName'. Please wait..."
 Write-Host "(This should take no more than 2-3 minutes.)"
