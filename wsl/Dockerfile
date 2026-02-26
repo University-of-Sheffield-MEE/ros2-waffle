@@ -36,6 +36,13 @@ ARG WSL_HOME_DIR=/home/${DEFAULT_USER}
 ARG SCRIPTS_PATH=${WSL_HOME_DIR}/.diamond
 ARG SRC_PATH=${DIAMOND_DIR}/ros2-waffle/wsl/source 
 
+RUN mkdir -p ${DIAMOND_DIR}/tb3_ws/src/ && \
+    git clone https://github.com/tom-howard/turtlebot3_minimal_sims.git ${DIAMOND_DIR}/tb3_ws/src/turtlebot3_minimal_sims
+
+WORKDIR ${DIAMOND_DIR}/tb3_ws/
+RUN /bin/bash -c "source /opt/ros/${ROS_VERSION}/setup.bash; colcon build" && \
+    chown -R ${DEFAULT_USER}:${DEFAULT_USER} ${DIAMOND_DIR}/tb3_ws
+
 WORKDIR ${WSL_HOME_DIR}
 RUN echo "[INFO] Configuring User Profile" && \
     mkdir -p ${SCRIPTS_PATH} && \

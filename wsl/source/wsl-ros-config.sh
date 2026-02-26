@@ -5,6 +5,10 @@
 source ${HOME}/.diamond/bash_aliases
 
 source /opt/ros/${ROS_DISTRO}/setup.bash
+TB3_INSTALL_DIR=/home/diamond/tb3_ws/install/local_setup.bash
+if [ -f "${TB3_INSTALL_DIR}" ]; then
+  source ${TB3_INSTALL_DIR}
+fi
 WS_INSTALL_DIR=$HOME/ros2_ws/install/local_setup.bash
 if [ -f "${WS_INSTALL_DIR}" ]; then
   source ${WS_INSTALL_DIR}
