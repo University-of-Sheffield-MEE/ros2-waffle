@@ -99,6 +99,7 @@ If (Test-Path $WinTermSettingsTargetFilePath)
 }
 
 Write-Host "Installing $DistroName from '$TarBallName'. Please wait..."
+Write-Host "(This should take no more than 2-3 minutes.)"
 Write-Host
 wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 
