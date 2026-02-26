@@ -28,13 +28,9 @@ RUN install /tmp/waffle /usr/local/bin/ && \
     install /tmp/diamond_tools /usr/local/bin/
 
 USER ${DEFAULT_USER}
-WORKDIR ${DIAMOND_DIR}
-
-RUN git clone https://github.com/University-of-Sheffield-MEE/ros2-waffle.git
 
 ARG WSL_HOME_DIR=/home/${DEFAULT_USER}
 ARG SCRIPTS_PATH=${WSL_HOME_DIR}/.diamond
-ARG SRC_PATH=${DIAMOND_DIR}/ros2-waffle/wsl/source 
 
 RUN mkdir -p ${DIAMOND_DIR}/tb3_ws/src/ && \
     git clone https://github.com/tom-howard/turtlebot3_minimal_sims.git ${DIAMOND_DIR}/tb3_ws/src/turtlebot3_minimal_sims
@@ -44,13 +40,15 @@ RUN /bin/bash -c "source /opt/ros/${ROS_VERSION}/setup.bash; colcon build" && \
     chown -R ${DEFAULT_USER}:${DEFAULT_USER} ${DIAMOND_DIR}/tb3_ws
 
 WORKDIR ${WSL_HOME_DIR}
+
 RUN echo "[INFO] Configuring User Profile" && \
     mkdir -p ${SCRIPTS_PATH} && \
-    cp ${SRC_PATH}/wsl-ros-config.sh ${SCRIPTS_PATH} && \
-    cp ${SRC_PATH}/bash_aliases ${SCRIPTS_PATH} && \
     bash -c 'echo -e "\nsource '${SCRIPTS_PATH}'/wsl-ros-config.sh\n"' | tee -a ${WSL_HOME_DIR}/.bashrc && \
     sudo -u ${DEFAULT_USER} -H git config --global init.defaultBranch main && \
     sudo -u ${DEFAULT_USER} -H git config --global push.default simple
+
+COPY --chown=${DEFAULT_USER}:${DEFAULT_USER} source/bash_aliases ${SCRIPTS_PATH}/bash_aliases
+COPY --chown=${DEFAULT_USER}:${DEFAULT_USER} source/wsl-ros-config.sh ${SCRIPTS_PATH}/wsl-ros-config.sh
 
 RUN echo "[INFO] Creating a ROS2 Workspace" && \
     mkdir -p ${WSL_HOME_DIR}/ros2_ws/src/
