@@ -2,7 +2,7 @@
 
 CONTAINER_NAME=wsl-ros2
 VERSION=2526.03
-XSERVER=true
+XSERVER=false
 
 error () {
   echo
