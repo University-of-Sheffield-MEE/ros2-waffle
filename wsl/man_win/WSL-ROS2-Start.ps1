@@ -95,6 +95,8 @@ If ($Distros -match $DistroName)
             Exit
         }
     }
+} else {
+    Write-Log "$DistroName distro not found in the WSL distro list."
 }
 
 Write-Log "Check if the Windows Terminal is currently running. If it is, close it."
