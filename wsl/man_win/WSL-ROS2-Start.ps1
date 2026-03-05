@@ -55,45 +55,39 @@ If (-not(Get-Process | Where-Object {$_.Name -eq "vcxsrv"}))
 }
 
 Write-Log "Checking the WSL distro list."
-$distrosRaw = wsl -l -v | Out-String
-$Distros = $distrosRaw.Replace("`0", "") 
-
-Write-Log "Verbose WSL Distro List output: $Distros"
+$console_encoding = ([console]::OutputEncoding)
+[console]::OutputEncoding = New-Object System.Text.UnicodeEncoding
+Clear
+$Distros = wsl --list
+[console]::OutputEncoding = $console_encoding
 
 Write-Host
-If ($Distros -match $DistroName)
-{   
-    if ($Distros -match "Installing")
+If ($Distros | Where-Object {$_ -eq $DistroName -or $_ -eq ($DistroName + " (Default)")})
+{
+    Write-Log "$DistroName distro is already installed."
+    Write-Host "You already have a $DistroName distribution installed."
+    Write-Host
+    $Reply = Read-Host -Prompt "Would you like to carry on using it? (Y/N)"
+    Write-Host
+    If ($Reply -eq "Y" -or $Reply -eq "YES")
     {
-        Write-Log "$DistroName stuck in 'Installing' state. Unregistering..."
+        Write-Log "Continue using the existing $DistroName distribution (and exit)."
+        Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+        Exit  
+    }
+    $Reply = Read-Host -Prompt "Is it OK to delete the current distribution and install a fresh copy? (Y/N)"
+    If ($Reply -eq "Y" -or $Reply -eq "YES")
+    {
+        Write-Log "Unregistering existing $DistroName distribution (to start from fresh)."
         wsl --unregister $DistroName
-        Clear
-    } else {
-        Write-Log "$DistroName distro is already installed."
-        Write-Host "You already have a $DistroName distribution installed."
-        Write-Host
-        $Reply = Read-Host -Prompt "Would you like to carry on using it? (Y/N)"
-        Write-Host
-        If ($Reply -eq "Y" -or $Reply -eq "YES")
-        {
-            Write-Log "Continue using the existing $DistroName distribution (and exit)."
-            Start-Process -FilePath "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
-            Exit  
-        }
-        $Reply = Read-Host -Prompt "Is it OK to delete the current distribution and install a fresh copy? (Y/N)"
-        If ($Reply -eq "Y" -or $Reply -eq "YES")
-        {
-            Write-Log "Unregistering existing $DistroName distribution (to start from fresh)."
-            wsl --unregister $DistroName
-            Clear
-        }
-        Else
-        {
-            Write-Log "Don't install a fresh $DistroName distro. Exiting."
-            Write-Host "Exiting..."
-            Start-Sleep -Seconds 3
-            Exit
-        }
+		Clear
+    }
+    Else
+    {
+        Write-Log "Don't install a fresh $DistroName distro. Exiting."
+        Write-Host "Exiting..."
+        Start-Sleep -Seconds 3
+        Exit
     }
 } else {
     Write-Log "$DistroName distro not found in the WSL distro list."
@@ -140,30 +134,7 @@ Write-Log "Installing $DistroName from '$TarBallName' ($TarBallPath)."
 Write-Host "Installing $DistroName from '$TarBallName'. Please wait..."
 Write-Host "(This should take no more than 2-3 minutes.)"
 Write-Host
-
-$ImportProcess = Start-Process -FilePath "wsl.exe" -ArgumentList "--import $DistroName `"$DistroTargetPath`" `"$TarBallPath`" --version 2" -PassThru -WindowStyle Hidden
-
-$TimeoutSeconds = 150 # 2.5 minutes
-$Timer = [System.Diagnostics.Stopwatch]::StartNew()
-while ($ImportProcess.HasExited -eq $false) {
-    if ($Timer.Elapsed.TotalSeconds -gt $TimeoutSeconds) {
-        Write-Log "ERROR: WSL import stalled (timeout exceeded)."
-        
-        # Kill the hung WSL command
-        $ImportProcess | Stop-Process -Force
-        
-        # CRITICAL: Clean up underlying WSL system processes to release file locks
-        Get-Process -Name "wslhost", "wsl" -ErrorAction SilentlyContinue | Stop-Process -Force
-        
-        Write-Host "The installation process failed. Please try again." -ForegroundColor Red
-        Start-Sleep -Seconds 5
-        Exit
-    }
-    Start-Sleep -Seconds 2
-}
-$Timer.Stop()
-
-Write-Log "WSL import completed successfully."
+wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 
 Start-Sleep -Seconds 2
 
