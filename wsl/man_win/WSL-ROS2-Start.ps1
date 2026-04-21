@@ -62,7 +62,7 @@ $Distros = wsl --list
 [console]::OutputEncoding = $console_encoding
 
 Write-Host
-If ($Distros | Where-Object {$_ -eq $DistroName -or $_ -eq ($DistroName + " (Default)")})
+If ($Distros -match $DistroName)
 {
     Write-Log "$DistroName distro is already installed."
     Write-Host "You already have a $DistroName distribution installed."
@@ -134,6 +134,7 @@ Write-Log "Installing $DistroName from '$TarBallName' ($TarBallPath)."
 Write-Host "Installing $DistroName from '$TarBallName'. Please wait..."
 Write-Host "(This should take no more than 2-3 minutes.)"
 Write-Host
+wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 wsl --import $DistroName $DistroTargetPath $TarBallPath --version 2
 
 Start-Sleep -Seconds 2
